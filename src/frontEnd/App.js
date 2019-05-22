@@ -6,11 +6,8 @@ function App() {
   return (
     <div className="App">
       <main>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
         <Form/>
-        </main>
+      </main>
     </div>
   );
 }

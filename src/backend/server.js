@@ -1,38 +1,35 @@
 const express = require('express')
 const app = express()
-const path = require('path');
 const port = process.env.PORT || 3001;
 const db = require('./db');
 
-db.connect().then(dbo => {
+app.use(express.urlencoded())
+app.use(express.json())
 
-	app.post('/rest/storeUser', (req, res) => {
-		console.log(req, 'response is', res)
-	});
+// HAVE A GO AT WRTIING A REQUEST TO RETRIEVE USER DATA THE SAME A S FOR KODFLIX
+// app.get('/rest/retrieveUserData', async (req,res) => {
+// 	await db.connect().then(async dbo => {
+// 		const user = await dbo.collection('users').find({name: 'Viv'})
+// 		res.send(user)
+// 	})
 
-    app.get('/rest/shows/:id', (req, res) => {
-        dbo.collection('shows').findOne({id: req.params.id},(err, show) => {
-            if (err) throw err;
-            res.send(show || { error: 'not found!' });
-        });
-	});
-	
-	app.get('/rest/shows', (req, res) => {
-        dbo.collection('shows').find({}).toArray((err, results) => {
-            if (err) throw err;
-            res.send(results);
-        });
-	});
-
-    //Serve any static files from the build folder
-    app.use(express.static(path.join(__dirname, '../../build')));
-
-    app.get('*', function (req, res) {
-        res.sendFile(path.join(__dirname, '../../build', 'index.html'));
-    });
-
-    app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
-
-    // Handle React routing, return all requests to React app
+app.post('/rest/storeUser', (req, res) => {
+	console.log(req.body)
+	db.connect().then(dbo => {
+		dbo.collection('users').insertOne(req.body)
+	})
 })
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+
+app.post('/rest/storeUser', (req, res) => {
+	console.log('request body is ', req.body)
+	res.send(req.body.user)
+});
+
+// db.connect().then(dbo => {
+// 	dbo.collection('users').insertOne({user: 'hello'})
+// })
+
+// https://flaviocopes.com/node-request-data/
+// https://stackoverflow.com/questions/4295782/how-to-process-post-data-in-node-js
