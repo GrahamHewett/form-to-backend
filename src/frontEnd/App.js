@@ -1,12 +1,12 @@
-import React from 'react';
-import './App.css';
-import Form from './Form'
+import React from "react";
+import "./App.css";
+import Form from "./Form";
 
 function App() {
   return (
     <div className="App">
       <main>
-        <Form/>
+        <Form />
       </main>
     </div>
   );
