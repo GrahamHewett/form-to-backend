@@ -15,22 +15,27 @@ export default class App extends Component {
 		headers: {
 			'Content-Type': 'application/json'
 		  },
-   		body: JSON.stringify(postBody)
+		body: JSON.stringify(postBody)
+		
   })
 	}
 
 	render() {
 		return (
 			<form className='form' onSubmit={(e) => this.handleSubmit(e)}>
-				<span>UserName:</span>
+				<label>UserName:</label>
 				<input id="form_user" type="text" required></input>
-				<span>Email:</span>
+				<label>Email:</label>
 				<input id="form_email" type="email" required></input>
-				<span>Age:</span>
+				<label>Age:</label>
 				<input id="form_age" type="number" min='0' max='100'>
 				</input>
-				<span>Gender:</span>
-				<input id="form_gender" type="text" required></input>
+				<label>Gender:</label>
+				<select id="form_gender" type="text" required>
+					<option>M</option>
+					<option>F</option>
+					<option>Other</option>
+				</select>
 				<input type="submit">
 				</input>
 			</form>
